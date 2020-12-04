@@ -9,7 +9,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.linear_model import LogisticRegression
 
 
-data = pd.read_csv('england_ks4final.csv') # import csv data here
+data = pd.read_csv('LondonGCSEData.csv') # import csv data here
 print(data.head())
 #train, other = train_test_split(data, test_size=0.2, random_state=0)
 #validation, test = train_test_split(other, test_size=0.5, random_state=0)
