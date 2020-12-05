@@ -58,15 +58,17 @@ Produce our model and find the accuracy, precision and recall.
 
 '''
 
-
-columns = ['P8MEA', 'KS2APS']
-# columns = ['P8MEA', 'KS2APS']
 #columns = ['P8MEA', 'KS2APS']
+#columns = ['P8MEA_17', 'KS2APS', 'P8MEA']
+#columns = ['ATT8SCR_17', 'P8MEA', 'KS2APS']
+#columns = ['KS2APS', 'P8MEA']
+columns = ['PTEBACHUM_E_PTQ_EE', 'P8MEA_17', 'PTEBACLAN_E_PTQ_EE']
 mod = LogisticRegression(C=1e9).fit(x_train[columns], y_train)
+
+print('Attributes being tested are:     {}'.format(columns))
 
 # TESTING SET
 y_test_predicted = mod.predict(x_test[columns])
-
 recall_test = recall_score(y_test, y_test_predicted, pos_label='1') # have to add pos_label so python knows which one is 'success'
 precision_test = precision_score(y_test, y_test_predicted, pos_label='1')
 accuracy_test = accuracy_score(y_test, y_test_predicted)
