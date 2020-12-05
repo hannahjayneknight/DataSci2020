@@ -58,10 +58,10 @@ Produce our model and find the accuracy, precision and recall.
 
 '''
 
-columns = ['P8MEA_17', 'KS2APS', 'PTFSM6CLA1A']
+#columns = ['P8MEA_17', 'KS2APS', 'PTFSM6CLA1A']
 #columns = ['ATT8SCR_17', 'TOTPUPS', 'PTEBACMAT_E_PTQ_EE']
 #columns = ['KS2APS', 'TOTPUPS']
-#columns = ['PTEBACHUM_E_PTQ_EE', 'P8MEA_17', 'PTEBACLAN_E_PTQ_EE']
+columns = ['PTEBACHUM_E_PTQ_EE', 'P8MEA_17', 'PTEBACLAN_E_PTQ_EE']
 mod = LogisticRegression(C=1e9).fit(x_train[columns], y_train)
 
 print('Attributes being tested are:     {}'.format(columns))
