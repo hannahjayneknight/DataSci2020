@@ -27,6 +27,8 @@ drop_nan = data.drop('ATT8SCR', axis=1)
 data = drop_nan
 drop_nan = data.drop('URN', axis=1)
 data = drop_nan
+drop_nan = data.drop('P8MEA', axis=1)
+data = drop_nan
 
 
 '''
