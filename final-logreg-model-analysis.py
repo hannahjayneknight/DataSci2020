@@ -8,6 +8,8 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import recall_score
 from sklearn.metrics import precision_score
 from sklearn.linear_model import LogisticRegression
+import matplotlib.pyplot as plt
+from scipy.special import expit
 
 
 data = pd.read_csv('LondonGCSEData.csv') # import csv data here
@@ -87,3 +89,49 @@ print('Recall is:     {}'.format(recall_validation))
 print('Precision is:  {}'.format(precision_validation))
 print('Accuracy is:  {}'.format(accuracy_validation))
 
+'''
+
+Plotting a graph using test data.
+
+X-axis = 'PTEBACHUM_E_PTQ_EE'
+y-axis = binary variable GCSEgrade
+
+'''
+# converting elements in y to ints
+y_test_predicted = list(map(int, y_test_predicted))
+
+plt.scatter(x_test['PTEBACHUM_E_PTQ_EE'], y_test_predicted, color='black', zorder=20)
+
+x_values = np.linspace(-5, 5, 100)
+loss = expit(x_values)
+#loss = expit(x_test['PTEBACHUM_E_PTQ_EE'] * mod.coef_ + mod.intercept_).ravel()
+plt.plot(x_values, loss, color='red', linewidth=3)
+plt.show()
+
+
+'''
+NB:
+mod.coef_ = [[1.56169926 4.27264119 1.2750952 ]]
+mod.intercept_ = [-2.29055773]
+
+
+
+
+plt.figure(1, figsize=(x_test, x_test))
+plt.clf()
+plt.scatter(x_test.ravel(), y_test_predicted, color='black', zorder=20)
+loss = expit(x_test * mod.coef_ + mod.intercept_).ravel()
+plt.plot(x_test, loss, color='red', linewidth=3)
+loss = expit(x_test * mod.coef_ + mod.intercept_).ravel()
+plt.plot(x_test, loss, color='red', linewidth=3)
+plt.ylabel('y')
+plt.xlabel('X')
+#plt.xticks(range(-5, 10))
+#plt.yticks([0, 0.5, 1])
+#plt.ylim(-.25, 1.25)
+#plt.xlim(-4, 10)
+plt.legend(('Logistic Regression Model'),
+           loc="lower right", fontsize='small')
+plt.tight_layout()
+plt.show()
+'''
