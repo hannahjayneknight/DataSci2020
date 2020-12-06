@@ -10,6 +10,7 @@ from sklearn.metrics import precision_score
 from sklearn.linear_model import LogisticRegression
 import matplotlib.pyplot as plt
 from scipy.special import expit
+from math import e
 
 
 data = pd.read_csv('LondonGCSEData.csv') # import csv data here
@@ -27,6 +28,7 @@ Firstly, the mean attainment 8 score for all schools was found. Schools with an 
 meangrade = data['ATT8SCR'].mean()
 sdgrade = data['ATT8SCR'].std()
 data['GCSEgrade'] = np.where(data['ATT8SCR'] >= meangrade , '1', '0')
+
 
 # get rid of the original 'ATT8SCR' column so that we do not get a linear relationship
 # between this and 'GCSEgrade' which is what we already know! Also drop school identifier
@@ -60,10 +62,10 @@ Produce our model and find the accuracy, precision and recall.
 
 '''
 
-#columns = ['P8MEA_17', 'KS2APS', 'PTFSM6CLA1A']
+columns = ['P8MEA_17', 'KS2APS', 'PTFSM6CLA1A']
 #columns = ['ATT8SCR_17', 'TOTPUPS', 'PTEBACMAT_E_PTQ_EE']
 #columns = ['KS2APS', 'TOTPUPS']
-columns = ['PTEBACHUM_E_PTQ_EE', 'P8MEA_17', 'PTEBACLAN_E_PTQ_EE']
+#columns = ['PTEBACHUM_E_PTQ_EE', 'P8MEA_17', 'PTEBACLAN_E_PTQ_EE']
 mod = LogisticRegression(C=1e9).fit(x_train[columns], y_train)
 
 print('Attributes being tested are:     {}'.format(columns))
@@ -100,38 +102,24 @@ y-axis = binary variable GCSEgrade
 # converting elements in y to ints
 y_test_predicted = list(map(int, y_test_predicted))
 
-plt.scatter(x_test['PTEBACHUM_E_PTQ_EE'], y_test_predicted, color='black', zorder=20)
+# plotting all three attributes as a scatter
+#P8MEA_17, KS2APS, PTFSM6CLA1A
+plt.scatter(x_test['P8MEA_17'], y_test_predicted, color='black', zorder=0)
+#plt.scatter(x_test['KS2APS'], y_test_predicted, color='red', zorder=1)
+plt.scatter(x_test['PTFSM6CLA1A'], y_test_predicted, color='black', zorder=2)
 
-x_values = np.linspace(-5, 5, 100)
-loss = expit(x_values)
+# trying to plot the exponential curve
+# mod.coef_ = [[ 5.50352027  1.43878593 -2.89650411]]
+
+y_bestfit = []
+for i in range(len(x_test['P8MEA_17'])):
+    y_bestfit_val = 1 / ( e ** -( mod.coef_[0][0] * np.array(x_test['P8MEA_17'])[i] + mod.coef_[0][1] * np.array(x_test['KS2APS'])[i] + mod.coef_[0][2] * np.array(x_test['PTFSM6CLA1A'])[i]))
+    y_bestfit.append(y_bestfit_val)
+
+x_bestfit = np.linspace(0, 35, num=len(y_bestfit))
+#plt.plot(y_bestfit, color='yellow', zorder=3)
+
+#loss = expit(x_test['PTFSM6CLA1A'])
 #loss = expit(x_test['PTEBACHUM_E_PTQ_EE'] * mod.coef_ + mod.intercept_).ravel()
-plt.plot(x_values, loss, color='red', linewidth=3)
+#plt.plot(x_test['PTFSM6CLA1A'], loss, color='red', linewidth=3)
 plt.show()
-
-
-'''
-NB:
-mod.coef_ = [[1.56169926 4.27264119 1.2750952 ]]
-mod.intercept_ = [-2.29055773]
-
-
-
-
-plt.figure(1, figsize=(x_test, x_test))
-plt.clf()
-plt.scatter(x_test.ravel(), y_test_predicted, color='black', zorder=20)
-loss = expit(x_test * mod.coef_ + mod.intercept_).ravel()
-plt.plot(x_test, loss, color='red', linewidth=3)
-loss = expit(x_test * mod.coef_ + mod.intercept_).ravel()
-plt.plot(x_test, loss, color='red', linewidth=3)
-plt.ylabel('y')
-plt.xlabel('X')
-#plt.xticks(range(-5, 10))
-#plt.yticks([0, 0.5, 1])
-#plt.ylim(-.25, 1.25)
-#plt.xlim(-4, 10)
-plt.legend(('Logistic Regression Model'),
-           loc="lower right", fontsize='small')
-plt.tight_layout()
-plt.show()
-'''
