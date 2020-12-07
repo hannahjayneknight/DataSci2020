@@ -134,15 +134,26 @@ Confusion matrix for the validation set.
 
 '''
 
-cm = confusion_matrix( y_val, y_validation_predicted)
+y_val = np.array(y_val)
+y_val = list(map(int, y_val))
+y_validation_predicted = list(map(int, y_validation_predicted))
+cm = confusion_matrix( y_val, y_validation_predicted, labels = [1, 0])
+
+tn, fp, fn, tp = cm.ravel()
+print((tn, fp, fn, tp))
+# tn = 15
+# fp = 2
+# fn = 1
+# tp = 16
 
 plt.figure(figsize=(1,1))
 plt.imshow(cm, interpolation='nearest', cmap='Pastel1')
-plt.title('Confusion matrix', size = 15)
+#plt.title('Confusion matrix', size = 15)
 tick_marks = np.arange(2)
-plt.xticks(tick_marks, ["0", "1"], rotation=45, size = 15)
-plt.yticks(tick_marks, ["0", "1"], size = 15)
+plt.xticks(tick_marks, ["Low achieving", "High achieving"], rotation=45, size = 10)
+plt.yticks(tick_marks, ["Low achieving", "High achieving"], size = 10)
 plt.tight_layout()
+plt.gcf().subplots_adjust(bottom=0.15)
 plt.ylabel('Actual label', size = 15)
 plt.xlabel('Predicted label', size = 15)
 width, height = cm.shape
