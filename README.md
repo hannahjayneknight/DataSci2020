@@ -4,19 +4,12 @@
 ###### *Esther Delpor, Samantha Foong, Sena Kutluay, Hannah Knight*
 
 
-## Introduction to the Dataset 
+## Introduction to the project 
 
-Every year the UK Department of Education (DfE) publishes a dataset comparing schools and colleges exam performance across England (School and College Performance Tables). The dataset consists of school census information (e.g. pupil demographics), examination entries and results collected from exam boards and local authorities as well as data from the previous academic year. In order to protect the confidentiality of individual students, only school-level results are published. 
+Due to the Covid-19 pandemic, pupils at the end of Key Stage 4 (Secondary School) in England were unable to sit their examinations and instead were given predicted results by their teachers. These predicted GCSE results were then moderated by an algorithm based on their school’s past performance and grade distribution. Chaos and disappointment ensued on results day when many students felt that they were disadvantaged by the algorithm.  
 
-There are two core measures of GCSE grades, the Attainment 8 and Progress 8 scores. The Attainment 8 score is calculated by measuring a student’s performance across 8 GCSE-level qualifications (Key Stage 4), including Maths and English (which are both double weighted), from the DfE’s approved list of qualifications. Progress 8 Scores aim to capture the progress a student has made from the end of primary school to the end of secondary school compared to other students of similar prior attainment at the end of Key Stage 2.  
+In this research paper we aim to explore how accurately a school’s performance can be predicted based on its characteristics and if life-changing examination results can really be left to an algorithm.   
 
-The full dataset consists of many more accompanying variables (e.g. break down of Attainment 8 scores for different demographics and subjects) than the ones we have chosen for this analysis, but we have selected the main demographics available. 
-
-## Data Preparation
-
-Our selected dataset for this analysis consists of the unique reference numbers (URNs) of 3577 schools across England, and 18 unique attributes including, postcode, school type, religious character, admissions policy, gender of entry, total number of pupils on roll, number of boys and girls at the end of key stage four, Key Stage 2 average points score of the cohort, percentage of pupils with special educational needs (SEN), total school expenditure, and Attainment 8 and Progress 8 scores in 2017-18. The dependent variables measured are the Attainment 8 and Progress 8 scores in 2018-19. 
-
-Independent schools and new schools were filtered out as these schools could not be properly compared to other schools due to lack of data. Schools without any Key Stage 4 entries and schools with suppressed data (5 or fewer pupils taking GCSEs) were also excluded. Schools without any published Attainment 8 score for 2018-19 were also excluded as they lacked the main dependent measure.
 
 ## Information About Our Data Sources
 
